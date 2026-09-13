@@ -1,0 +1,12 @@
+{
+  "name": "sociolab",
+  "version": "0.1.0",
+  "private": true,
+  "description": "A lightweight local multi-agent social simulation framework for Ollama.",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

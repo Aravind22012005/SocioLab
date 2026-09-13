@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>SocioLab</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/styles.css">
+  </head>
+  <body>
+    <div class="noise" aria-hidden="true"></div>
+    <div class="scanlines" aria-hidden="true"></div>
+    <header class="site-header">
+      <div>
+        <p class="eyebrow">LOCAL RESEARCH PROTOTYPE</p>
+        <h1 data-text="SocioLab">SocioLab</h1>
+        <p class="subtitle">A Local Multi-Agent Social Simulation Framework</p>
+      </div>
+      <div class="connection" id="connection" aria-live="polite"><span class="dot"></span><span>Checking Ollama</span></div>
+    </header>
+
+    <main class="workspace">
+      <aside class="setup-panel" aria-label="Simulation setup">
+        <section class="setup-section">
+          <div class="section-heading"><h2>Starting event</h2><button class="text-button" type="button" id="loadExample">Load room dispute</button></div>
+          <textarea id="scenario" rows="7" maxlength="1600">Asha and Ben say Chitra's belongings take too much shared room space and demand that she move them today. Chitra believes they are targeting her because she is a junior student and says the demand is unfair.</textarea>
+        </section>
+
+        <section class="setup-section compact-section">
+          <div class="section-heading"><h2>Experiment</h2></div>
+          <label>Design<select id="experimentMode"><option value="role">Role consistency: one model in all roles</option><option value="comparison">Model comparison: assign a model per role</option></select></label>
+          <div class="section-heading rounds-heading"><h2>Maximum rounds</h2><output id="roundValue" for="rounds">6</output></div>
+          <input id="rounds" type="range" min="1" max="10" value="6">
+        </section>
+
+        <section class="setup-section">
+          <div class="section-heading"><h2>Private participants</h2><button class="text-button" type="button" id="addAgent">Add participant</button></div>
+          <div id="agents" class="agents"></div>
+        </section>
+
+        <section class="setup-section models-section">
+          <div class="section-heading"><h2>Available Ollama models</h2><button class="icon-button" type="button" id="refreshModels" title="Refresh installed models" aria-label="Refresh installed models">Refresh</button></div>
+          <div id="models" class="model-list" aria-live="polite"></div>
+        </section>
+
+        <div class="actions"><button class="secondary-button" type="button" id="reset">Reset</button><button class="primary-button" type="button" id="run">Run simulation</button></div>
+      </aside>
+
+      <section class="simulation-panel" aria-label="Simulation output">
+        <div class="simulation-header"><div><p class="eyebrow">INTERACTION TRACE</p><h2>Discussion</h2></div><div id="runStatus" class="run-status">Ready</div></div>
+        <section id="worldState" class="world-state" hidden aria-live="polite"></section>
+        <div id="emptyState" class="empty-state"><h3>Give each participant a reason to act</h3><p>Private goals stay with their owner. Public actions update the shared world, then determine the next turn.</p></div>
+        <div id="transcript" class="transcript" aria-live="polite"></div>
+      </section>
+    </main>
+
+    <template id="agentTemplate">
+      <article class="agent-row">
+        <div class="agent-topline"><strong class="agent-label"></strong><button class="remove-button" type="button" title="Remove participant">Remove</button></div>
+        <div class="field-grid">
+          <label>Name<input class="agent-name" maxlength="40" required></label>
+          <label>Model<select class="agent-model" required></select></label>
+        </div>
+        <label>Role<input class="agent-role" maxlength="180" required></label>
+        <label>Personality<textarea class="agent-personality" rows="2" maxlength="220" required></textarea></label>
+        <label>Primary goal<textarea class="agent-primary-goal" rows="2" maxlength="220" required></textarea></label>
+        <label>Secondary goals<textarea class="agent-secondary-goals" rows="2" maxlength="220"></textarea></label>
+        <label>Constraints<textarea class="agent-constraints" rows="2" maxlength="220"></textarea></label>
+        <label>Private information<textarea class="agent-private-info" rows="2" maxlength="260"></textarea></label>
+      </article>
+    </template>
+    <script src="/app.js"></script>
+  </body>
+</html>
