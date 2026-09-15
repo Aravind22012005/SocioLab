@@ -6,16 +6,14 @@
     <title>SocioLab</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/styles.css">
   </head>
   <body>
-    <div class="noise" aria-hidden="true"></div>
-    <div class="scanlines" aria-hidden="true"></div>
     <header class="site-header">
       <div>
         <p class="eyebrow">LOCAL RESEARCH PROTOTYPE</p>
-        <h1 data-text="SocioLab">SocioLab</h1>
+        <h1>SocioLab</h1>
         <p class="subtitle">A Local Multi-Agent Social Simulation Framework</p>
       </div>
       <div class="connection" id="connection" aria-live="polite"><span class="dot"></span><span>Checking Ollama</span></div>
@@ -49,10 +47,25 @@
       </aside>
 
       <section class="simulation-panel" aria-label="Simulation output">
-        <div class="simulation-header"><div><p class="eyebrow">INTERACTION TRACE</p><h2>Discussion</h2></div><div id="runStatus" class="run-status">Ready</div></div>
+        <div class="simulation-header">
+          <div>
+            <p class="eyebrow">INTERACTION TRACE</p>
+            <div class="tab-row" role="tablist">
+              <button class="tab-button active" type="button" data-tab="discussion" role="tab" aria-selected="true">Discussion</button>
+              <button class="tab-button" type="button" data-tab="analytics" role="tab" aria-selected="false">Analytics</button>
+            </div>
+          </div>
+          <div id="runStatus" class="run-status">Ready</div>
+        </div>
         <section id="worldState" class="world-state" hidden aria-live="polite"></section>
-        <div id="emptyState" class="empty-state"><h3>Give each participant a reason to act</h3><p>Private goals stay with their owner. Public actions update the shared world, then determine the next turn.</p></div>
-        <div id="transcript" class="transcript" aria-live="polite"></div>
+        <div id="discussionPanel" class="tab-panel" role="tabpanel">
+          <div id="emptyState" class="empty-state"><h3>Give each participant a reason to act</h3><p>Private goals stay with their owner. Public actions update the shared world, then determine the next turn.</p></div>
+          <div id="transcript" class="transcript" aria-live="polite"></div>
+        </div>
+        <div id="analyticsPanel" class="tab-panel" role="tabpanel" hidden>
+          <div id="analyticsEmpty" class="empty-state"><h3>No analytics yet</h3><p>Run a simulation to see the tension timeline, standing trajectories, and each participant's action distribution update live.</p></div>
+          <section id="insights" class="insights" hidden aria-label="Simulation analytics"></section>
+        </div>
       </section>
     </main>
 
